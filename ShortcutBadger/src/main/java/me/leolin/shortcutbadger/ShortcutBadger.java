@@ -15,21 +15,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import me.leolin.shortcutbadger.impl.AdwHomeBadger;
-import me.leolin.shortcutbadger.impl.ApexHomeBadger;
-import me.leolin.shortcutbadger.impl.AsusHomeBadger;
-import me.leolin.shortcutbadger.impl.DefaultBadger;
-import me.leolin.shortcutbadger.impl.EverythingMeHomeBadger;
-import me.leolin.shortcutbadger.impl.HuaweiHomeBadger;
-import me.leolin.shortcutbadger.impl.NewHtcHomeBadger;
-import me.leolin.shortcutbadger.impl.NovaHomeBadger;
-import me.leolin.shortcutbadger.impl.OPPOHomeBader;
-import me.leolin.shortcutbadger.impl.SamsungHomeBadger;
-import me.leolin.shortcutbadger.impl.SonyHomeBadger;
-import me.leolin.shortcutbadger.impl.VivoHomeBadger;
-import me.leolin.shortcutbadger.impl.YandexLauncherBadger;
-import me.leolin.shortcutbadger.impl.ZTEHomeBadger;
-import me.leolin.shortcutbadger.impl.ZukHomeBadger;
+import me.leolin.shortcutbadger.impl.*;
 
 
 /**
@@ -52,6 +38,7 @@ public final class ShortcutBadger {
         BADGERS.add(NewHtcHomeBadger.class);
         BADGERS.add(NovaHomeBadger.class);
         BADGERS.add(SonyHomeBadger.class);
+        BADGERS.add(XiaomiHomeBadger.class);
         BADGERS.add(AsusHomeBadger.class);
         BADGERS.add(HuaweiHomeBadger.class);
         BADGERS.add(OPPOHomeBader.class);
@@ -230,7 +217,9 @@ public final class ShortcutBadger {
         }
 
         if (sShortcutBadger == null) {
-            if (Build.MANUFACTURER.equalsIgnoreCase("ZUK"))
+            if (Build.MANUFACTURER.equalsIgnoreCase("Xiaomi"))
+                sShortcutBadger = new XiaomiHomeBadger();
+            else if (Build.MANUFACTURER.equalsIgnoreCase("ZUK"))
                 sShortcutBadger = new ZukHomeBadger();
             else if (Build.MANUFACTURER.equalsIgnoreCase("OPPO"))
                 sShortcutBadger = new OPPOHomeBader();
@@ -258,8 +247,9 @@ public final class ShortcutBadger {
 
     /**
      * Making sure the default Home activity is on top of the returned list
-     * @param defaultActivity       default Home activity
-     * @param resolveInfos          list of all Home activities in the system
+     *
+     * @param defaultActivity default Home activity
+     * @param resolveInfos    list of all Home activities in the system
      */
     private static void validateInfoList(ResolveInfo defaultActivity, List<ResolveInfo> resolveInfos) {
         int indexToSwapWith = 0;
